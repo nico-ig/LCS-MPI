@@ -1,0 +1,616 @@
+> Starting benchmark...
+=> Making all .sh and .py files in ./ executable...
+=> Finished making files executable.
+=> Setting up system for benchmarking...
+Rescue mode: True
+Setting CPU frequency to 1400000 kHz...
+CPU frequency setting complete.
+Detivating Core Performance Boost...
+Core Performance Boost deactivated.
+Core Boost: Inactive
+Deactivating Hyper-Threading...
+Hyper-Threading deactivated.
+Hyper Threading: Inactive
+Online CPUs: 0,2,4,6,8,10
+Offline CPUs: 1,3,5,7,9,11
+Stopping services...
+Services stopped.
+Listing all active systemd services: dbus.service,rescue.service,systemd-journald.service,systemd-timesyncd.service,systemd-udevd.service
+Killing processes...
+Processes killed.
+Listing all active processes: (root, systemd), (root, kthreadd), (root, rcu_gp), (root, rcu_par_gp), (root, slub_flushwq), (root, netns), (root, kworker/0:0-mm_percpu_wq), (root, kworker/0:0H-events_highpri), (root, kworker/u32:0-writeback), (root, mm_percpu_wq), (root, rcu_tasks_rude_), (root, rcu_tasks_trace), (root, ksoftirqd/0), (root, rcu_sched), (root, migration/0), (root, idle_inject/0), (root, kworker/0:1-events), (root, cpuhp/0), (root, cpuhp/1), (root, idle_inject/1), (root, migration/1), (root, ksoftirqd/1), (root, kworker/1:0-events), (root, kworker/1:0H-events_highpri), (root, cpuhp/2), (root, idle_inject/2), (root, migration/2), (root, ksoftirqd/2), (root, kworker/2:0-events), (root, kworker/2:0H-kblockd), (root, cpuhp/3), (root, idle_inject/3), (root, migration/3), (root, ksoftirqd/3), (root, kworker/3:0-events), (root, kworker/3:0H-kblockd), (root, cpuhp/4), (root, idle_inject/4), (root, migration/4), (root, ksoftirqd/4), (root, kworker/4:0-events), (root, kworker/4:0H-events_highpri), (root, cpuhp/5), (root, idle_inject/5), (root, migration/5), (root, ksoftirqd/5), (root, kworker/5:0-mm_percpu_wq), (root, kworker/5:0H-events_highpri), (root, cpuhp/6), (root, idle_inject/6), (root, migration/6), (root, ksoftirqd/6), (root, kworker/6:0-events), (root, kworker/6:0H-events_highpri), (root, cpuhp/7), (root, idle_inject/7), (root, migration/7), (root, ksoftirqd/7), (root, kworker/7:0-events), (root, kworker/7:0H-events_highpri), (root, cpuhp/8), (root, idle_inject/8), (root, migration/8), (root, ksoftirqd/8), (root, kworker/8:0-events), (root, kworker/8:0H-events_highpri), (root, cpuhp/9), (root, idle_inject/9), (root, migration/9), (root, ksoftirqd/9), (root, kworker/9:0-pm), (root, kworker/9:0H-events_highpri), (root, cpuhp/10), (root, idle_inject/10), (root, migration/10), (root, ksoftirqd/10), (root, kworker/10:0-events), (root, kworker/10:0H-events_highpri), (root, cpuhp/11), (root, idle_inject/11), (root, migration/11), (root, ksoftirqd/11), (root, kworker/11:0-events), (root, kworker/11:0H-events_highpri), (root, kdevtmpfs), (root, inet_frag_wq), (root, kauditd), (root, khungtaskd), (root, oom_reaper), (root, writeback), (root, kcompactd0), (root, ksmd), (root, khugepaged), (root, kworker/6:1-cgroup_destroy), (root, kworker/2:1-events), (root, kintegrityd), (root, kblockd), (root, blkcg_punt_bio), (root, tpm_dev_wq), (root, ata_sff), (root, md), (root, edac-poller), (root, devfreq_wq), (root, watchdogd), (root, kworker/u32:1-events_power_efficient), (root, kworker/1:1-events), (root, kworker/1:1H), (root, irq/25-AMD-Vi), (root, kswapd0), (root, ecryptfs-kthrea), (root, kthrotld), (root, kworker/3:1-events), (root, kworker/4:1-cgroup_destroy), (root, kworker/5:1-events), (root, kworker/7:1-events), (root, kworker/8:1-pm), (root, kworker/9:1-events), (root, kworker/10:1-events), (root, kworker/11:1-events), (root, acpi_thermal_pm), (root, kworker/u32:2-events_unbound), (root, kworker/u32:3-writeback), (root, vfio-irqfd-clea), (root, mld), (root, kworker/10:1H-kblockd), (root, ipv6_addrconf), (root, kstrp), (root, zswap-shrink), (root, kworker/u33:0-hci0), (root, charger_manager), (root, kworker/0:1H-kblockd), (root, nvme-wq), (root, kworker/11:2-events), (root, nvme-reset-wq), (root, nvme-delete-wq), (root, scsi_eh_0), (root, scsi_tmf_0), (root, kworker/u32:4-events_unbound), (root, kworker/u32:5-writeback), (root, scsi_eh_1), (root, scsi_tmf_1), (root, kworker/u32:6-events_unbound), (root, irq/41-MSFT0001), (root, cryptd), (root, kworker/4:1H-kblockd), (root, kworker/5:1H-kblockd), (root, kworker/7:1H-kblockd), (root, kworker/6:1H-kblockd), (root, kworker/10:2), (root, kworker/10:3), (root, kworker/4:2-cgroup_destroy), (root, kworker/6:2), (root, kworker/8:1H-kblockd), (root, amd_iommu_v2), (root, kworker/8:2-events), (root, kworker/11:1H-kblockd), (root, gfx), (root, comp_1.0.0), (root, comp_1.1.0), (root, comp_1.2.0), (root, comp_1.3.0), (root, comp_1.0.1), (root, comp_1.1.1), (root, comp_1.2.1), (root, comp_1.3.1), (root, sdma0), (root, vcn_dec), (root, vcn_enc0), (root, vcn_enc1), (root, jpeg_dec), (root, amdgpu_dm_hpd_r), (root, amdgpu_dm_hpd_r), (root, dm_vblank_contr), (root, card0-crtc0), (root, card0-crtc1), (root, card0-crtc2), (root, card0-crtc3), (root, kworker/0:2-events), (root, kworker/2:1H-kblockd), (root, jbd2/nvme0n1p2-), (root, ext4-rsv-conver), (root, kworker/9:1H-kblockd), (root, systemd-journal), (root, kworker/7:2-cgroup_destroy), (root, systemd-udevd), (root, kworker/2:2-events), (root, kworker/3:1H-kblockd), (root, kworker/3:2-cgroup_destroy), (root, cfg80211), (root, kworker/1:2), (root, kworker/9:2-events), (root, kworker/9:3-mm_percpu_wq), (root, irq/71-rtw88_pc), (root, kworker/9:4-events), (systemd+, systemd-timesyn), (root, kworker/u33:1-hci0), (root, kworker/u33:2-hci0), (message+, dbus-daemon), (root, systemd-sulogin), (root, zsh), (root, kworker/5:2), (root, python3), (root, setup.sh), (root, kill_processes.), (root, ps), (root, awk), 
+Set OMP_PROC_BIND to 'close'.
+Set OMP_SCHEDULE to 'static'.
+Set OMP_PLACES to 'cores'.
+=> System setup complete.
+
+=================================== Experiment Methodology ====================================
+
+1. System Preparation
+   - The system is checked to ensure it is running in rescue mode. If not, rescue mode
+     is set as the default, and the user is instructed to reboot to apply the change.
+   - Unnecessary systemd services and user processes are stopped prior to benchmarking.
+   - CPU frequency is set according to experiment configurations to avoid the effects of
+     dynamic frequency scaling.
+   - Core Performance Boost and Hyper-Threading are disabled.
+   - Thread binding and scheduling strategies are configured according to the experiment
+     settings.
+  - The binary is cleaned and recompiled before experiments begin to ensure a fresh
+     build.
+
+2. Hardware and Software Environment
+   - Hardware details (CPU model, core count, cache sizes, memory) and software versions
+     (OS, compiler, libraries) are recorded.
+
+3. Input Generation
+   - Input sequences are generated for each experiment run using a deterministic script,
+     with sizes and seeds specified in the configuration to ensure reproducibility.
+
+4. Experiment Execution
+   - Experiments are conducted using various thread counts and block sizes, as defined in
+     the configuration.
+   - Each configuration is executed multiple times to account for variability.
+   - The number of runs per configuration is specified in the experiment setup.
+   - Runs are interleaved across thread counts to reduce systematic bias.
+
+5. Metrics Collected
+   - Execution time and relevant performance metrics are recorded for each run.
+   - The results/profile directory contains data on pure sequential and parallel fractions, 
+     including:
+      - Average execution time and number of calls for parallel functions (as defined in 
+        the configuration),
+      - Calculated pure sequential and parallel fractions,
+      - Speed-up estimates based on Amdahl's law.
+
+   - The results/experiments directory contains detailed run data, including:
+     - Input size,
+     - Thread count,
+     - Number of repetitions,
+     - Execution time,
+     - Speed-up,
+     - Parallel efficiency,
+     - Strong and weak scaling metrics.
+
+
+6. Restoration
+   - After experiments, the following system settings are restored:
+     - CPU frequency governor (reset to the default value),
+     - Core Performance Boost and Hyper-Threading (re-enabled),
+     - System default mode (restored to graphical mode).
+
+7. Additional Information
+   - The experiment configuration are specified in the config.yml.
+
+--------------------------------------- CPU Information ---------------------------------------
+
+Vendor: AuthenticAMD
+Brand: AMD Ryzen 5 5500U with Radeon Graphics
+Microarchitecture: AMD Zen 2, 7nm
+Family: 15
+Model: 8
+Stepping: 1
+Physical Cores: 6
+Threads Per Core: 2
+CPU Min: 1397.438 MHz
+CPU Max: 1400.000 MHz
+CPU Avg: 1399.57 MHz
+
+---------------------------------------- CPU Features -----------------------------------------
+
+Core Boost: False
+Hyper Threading: False
+Online CPUs: 0,2,4,6,8,10
+Offline CPUs: 1,3,5,7,9,11
+
+------------------------------------ Active CPU Frequency -------------------------------------
+
+CPU,Frequency_MHz
+0,1397.45
+2,1397.45
+4,1397.44
+6,1397.43
+8,1397.45
+10,1397.42
+
+------------------------------------- System Information --------------------------------------
+
+Compiler: g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+CFLAGS: -std=c++17 -fopenmp -O3 -march=native
+LDFLAGS: -fopenmp -flto 
+
+OS: Linux Mint 21.3
+Kernel: 5.15.0-136-generic
+
+-------------------------------------- Cache Information --------------------------------------
+
+Level,Size,Unit,Instances,Associativity
+L1d,192,KiB,6,8-way
+L1i,192,KiB,6,8-way
+L2,3,MiB,6,6-way
+L3,8,MiB,2,9-way
+
+--------------------------------------- TLB Information ---------------------------------------
+
+Level,Page Size,Instruction Entries,Instruction Associativity,Data Entries,Data Associativity
+L1,1G,64,Fully associative,64,Fully associative
+L1,2M/4M,64,Fully associative,64,Fully associative
+L1,4K,64,Fully associative,64,Fully associative
+L2,1G,0,Off,0,Off
+L2,2M/4M,1024,8-way,2048,4-way
+L2,4K,1024,8-way,2048,8-way
+
+-------------------------------------- DRAM Information ---------------------------------------
+
+Locator,Size,Speed,Type,FormFactor,Manufacturer,PartNumber
+DIMM 0,16 GB,2667 MT/s,DDR4,SODIMM,Unknown,CMSX32GX4M2A2666C18
+DIMM 0,4 GB,2667 MT/s,DDR4,Row Of Chips,SMART Brazil,Unknown
+
+===============================================================================================
+=> Starting profiling experiments...
+Compiling binary...
+Compilation done.
+Running profile for input length 50000...
+  Repeat 1/20...
+  Repeat 2/20...
+  Repeat 3/20...
+  Repeat 4/20...
+  Repeat 5/20...
+  Repeat 6/20...
+  Repeat 7/20...
+  Repeat 8/20...
+  Repeat 9/20...
+  Repeat 10/20...
+  Repeat 11/20...
+  Repeat 12/20...
+  Repeat 13/20...
+  Repeat 14/20...
+  Repeat 15/20...
+  Repeat 16/20...
+  Repeat 17/20...
+  Repeat 18/20...
+  Repeat 19/20...
+  Repeat 20/20...
+Completed profiling experiments for length 50000.
+=> All profiling experiments completed. Summaries written.
+=> Starting experiments...
+Compiling binary...
+Compilation done.
+Running experiments for input length 30000...
+  Repeat 2/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 3/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 4/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 5/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 6/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 7/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 8/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 9/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 10/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 11/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 12/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 13/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 14/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 15/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 16/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 17/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 18/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 19/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 20/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 21/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+Completed experiments for [length 30000, threads 1].
+Completed experiments for [length 30000, threads 2].
+Completed experiments for [length 30000, threads 3].
+Completed experiments for [length 30000, threads 6].
+Running experiments for input length 40000...
+  Repeat 2/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 3/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 4/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 5/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 6/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 7/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 8/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 9/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 10/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 11/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 12/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 13/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 14/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 15/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 16/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 17/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 18/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 19/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 20/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 21/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+Completed experiments for [length 40000, threads 1].
+Completed experiments for [length 40000, threads 2].
+Completed experiments for [length 40000, threads 3].
+Completed experiments for [length 40000, threads 6].
+Running experiments for input length 50000...
+  Repeat 2/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 3/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 4/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 5/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 6/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 7/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 8/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 9/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 10/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 11/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 12/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 13/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 14/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 15/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 16/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 17/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 18/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 19/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 20/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 21/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+Completed experiments for [length 50000, threads 1].
+Completed experiments for [length 50000, threads 2].
+Completed experiments for [length 50000, threads 3].
+Completed experiments for [length 50000, threads 6].
+Running experiments for input length 60000...
+  Repeat 2/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 3/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 4/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 5/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 6/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 7/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 8/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 9/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 10/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 11/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 12/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 13/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 14/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 15/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 16/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 17/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 18/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 19/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 20/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+  Repeat 21/20...
+    Threads: 1: Started..., Finished.
+    Threads: 2: Started..., Finished.
+    Threads: 3: Started..., Finished.
+    Threads: 6: Started..., Finished.
+Completed experiments for [length 60000, threads 1].
+Completed experiments for [length 60000, threads 2].
+Completed experiments for [length 60000, threads 3].
+Completed experiments for [length 60000, threads 6].
+=> All experiments completed. Summaries written.
+=> Restoring system after benchmarking...
+Restoring CPU frequency governor to 'userspace'...
+CPU frequency governor restoration complete.
+Activating Core Performance Boost...
+Core Performance Boost Activated.
+Core Boost: Active
+Activating Hyper-Threading...
+Hyper-Threading activated.
+Hyper Threading: Active
+Online CPUs: 0-11
+Offline CPUs: None
+Restoring default system mode to graphical.target...
+Removed /etc/systemd/system/default.target.
+Created symlink /etc/systemd/system/default.target → /lib/systemd/system/graphical.target.
+You can reboot your system with:
+    sudo reboot
+=> System restored.
+> Benchmark completed successfully.
