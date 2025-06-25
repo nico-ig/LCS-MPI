@@ -8,28 +8,40 @@
 int main(int argc, char** argv) {
   // Create a scope so we can clean up the memory only after the grid is destroyed
   {
+    MPI_Init(&argc, &argv);
     CommandLineParser parser(argc, argv);
 
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    
     if (parser.helpRequested()) {
-      parser.showHelp();
+      if (rank == 0) parser.showHelp();
       return 0;
     }
 
-    auto files = parser.getInputFiles();
+    ut::string hSeq;
+    ut::string vSeq;
 
-    ut::utype num_threads = parser.getNumThreads();
-    ut::utype block_multiplier = parser.getBlockMultiplier();
+    if (rank == 0) {
+      auto files = parser.getInputFiles();
+      hSeq = FileHandler::readFile(files[0]);
+      vSeq = FileHandler::readFile(files[1]);
+    }
+    
+    GridProcessor::broadcastString(hSeq, rank, MPI_COMM_WORLD);
+    GridProcessor::broadcastString(vSeq, rank, MPI_COMM_WORLD);
 
-    ut::string hSeq = FileHandler::readFile(files[0]);
-    ut::string vSeq = FileHandler::readFile(files[1]);
- 
+    int num_ranks = 1;
+    MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
+
+    Grid grid(hSeq, vSeq);
+
+    ProcessorHook::processGridByBlock(num_ranks, rank, &grid);
   
-    Grid grid(hSeq, vSeq, MemoryHandler::CACHE_LINE_SIZE * block_multiplier);
-    MPI_Init(&argc, &argv);
-    ProcessorHook::processGridByBlock(num_threads, &grid);
-    MPI_Finalize();
     MemoryHandler::freeMemory(hSeq.data());
     MemoryHandler::freeMemory(vSeq.data());
+
+    MPI_Finalize();
   }
 
   MemoryHandler::cleanup();

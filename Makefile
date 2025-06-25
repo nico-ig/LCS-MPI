@@ -88,12 +88,14 @@ clean:
 
 purge: clean
 	$(call log,$(BLUE),🧹 Ramoving build dir,$(BUILD_DIR))
-	@rm -f $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 
 sync:
+	$(call log,$(CYAN),🔄 Syncing files to remote host,$(REMOTE_HOST))
 	@rsync -a --delete ./ $(REMOTE_HOST):$(REMOTE_DIR)
 
 run: release sync
+	$(call log,$(PURPLE),🚀 Running on remote host,$(REMOTE_HOST))
 	@$(RUN_SCRIPT)
 
 print-hostfile:

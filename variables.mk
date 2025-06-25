@@ -16,7 +16,7 @@ WARNINGS = -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Wsign-compare -Wconve
 					 -Wunused-but-set-variable -Wunused-but-set-parameter -Wunused-result
 
 REMOTE_DIR = LCS-MPI
-REMOTE_HOST = macalan-dinf
+REMOTE_HOST = localhost
 HOSTFILE = hostfile.txt
-NUMPROCESS = 1
+NUMPROCESS = 2
 RUN_SCRIPT = ./benchmark/scripts/utils/run-mpi.sh ./

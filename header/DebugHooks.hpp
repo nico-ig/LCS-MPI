@@ -17,8 +17,8 @@ namespace DebugConfig {
     };
 
     struct BaseProcessor {
-        static void processGridByBlock(ut::utype num_threads, Grid* grid) {
-            GridProcessor::processGridByBlock(num_threads, grid);
+        static void processGridByBlock(ut::utype num_ranks, ut::utype rank, Grid* grid) {
+            GridProcessor::processGridByBlock(num_ranks, rank, grid);
         }
     };
 }
@@ -37,39 +37,9 @@ namespace DebugMatrix {
     };
 
     struct Processor : public DebugConfig::BaseProcessor {
-        static void processGridByBlock(ut::utype num_threads, Grid* grid) {
-            DebugConfig::BaseProcessor::processGridByBlock(num_threads, grid);
+        static void processGridByBlock(ut::utype num_ranks, ut::utype rank, Grid* grid) {
+            DebugConfig::BaseProcessor::processGridByBlock(num_ranks, rank, grid);
             GridPrinter::print(grid);
-        }
-    };
-}
-
-
-namespace DebugThread {
-    struct Printer : public DebugConfig::BaseGridPrinter {
-        static void print(Grid* grid) { GridPrinter::print(grid); }
-        static void printHeader(Grid* grid) {
-            GridPrinter::printPadding();
-            GridPrinter::printPadding(GridPrinter::COLUMN_WIDTH / 2);
-            for (ut::utype d = 1; d < grid->cols(); d++) {
-                GridPrinter::printCentered(const_cast<char*>(std::to_string(d).c_str()));
-            }
-            std::cout << std::endl;
-        }
-
-        static void printRowHeader(ut::utype row, Grid*) {
-            std::cout << std::setw(GridPrinter::COLUMN_WIDTH + 1) << row; 
-            GridPrinter::printHorizontalSeparator();
-        }
-
-        static char* defaultValueString() {
-            return (char*)".";
-        }
-    };
-
-    struct Compute {
-        static ut::utype _compute(ut::utype, ut::utype, char, char) {
-            return static_cast<ut::utype>(omp_get_thread_num()) + 1;
         }
     };
 }
@@ -83,11 +53,6 @@ namespace DebugThread {
     using ProcessorHook = DebugMatrix::Processor;
     using PrinterHook = DebugMatrix::Printer;
     using ComputeHook = Grid;
-
-#elif DEBUGTHREAD
-    using ProcessorHook = GridProcessor;
-    using PrinterHook = DebugThread::Printer;
-    using ComputeHook = DebugThread::Compute;
 
 #else
     using ProcessorHook = GridProcessor;

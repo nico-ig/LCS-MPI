@@ -15,7 +15,7 @@ HOST_FILE=$(make -s -C "$SRC_DIR" print-hostfile)
 NUMPROCESS=$(make -s -C "$SRC_DIR" print-numprocess)
 
 MPI_CMD="mpirun --verbose --hostfile $REMOTE_DIR/$HOST_FILE -np $NUMPROCESS"
-RUN_BIN="$BIN_PATH -f $REMOTE_DIR/fileA.in -f $REMOTE_DIR/fileB.in -t 1 -b 80"
+RUN_BIN="$BIN_PATH -f $REMOTE_DIR/fileA.in -f $REMOTE_DIR/fileB.in"
 REMOTE_CMD="$MPI_CMD $RUN_BIN"
 
 echo "Running mpi on $REMOTE_HOST"

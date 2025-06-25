@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mpi.h>
 #include <iostream>
 
 namespace utils {
@@ -16,6 +17,7 @@ namespace utils {
             inline constexpr T operator[](size_t index) { return _data[index]; }
     };
 
+    constexpr MPI_Datatype mpi_type = MPI_UNSIGNED_LONG;
     using utype = unsigned long;
     using string = vector<char>;
 }
