@@ -34,3 +34,7 @@
 build*
 .vscode
 *.in
+tmp*
+results*
+*__pycache__*
+*.txt
