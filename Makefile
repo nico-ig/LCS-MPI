@@ -45,8 +45,7 @@ all: release
 release: CFLAGS += $(RELEASE_CFLAGS)
 release: $(BIN_DIR)/$(TARGET)
 
-profile: CFLAGS += $(DEBUG_CFLAGS) -pg
-profile: LDFLAGS += -pg
+profile: CFLAGS += $(DEBUG_CFLAGS) -DPROFILE
 profile: clean $(BIN_DIR)/$(TARGET)
 
 debug: CFLAGS += $(DEBUG_CFLAGS) $(WARNINGS)
@@ -64,12 +63,12 @@ debug-matrix: debug
 
 # Main binary target
 $(BIN_DIR)/$(TARGET): $(OBJ) | $(BIN_DIR)
-	$(call log,$(GREEN),🔗 Linking,$@)
+	$(call log,$(GREEN),Linking,$@)
 	@$(CXX) $(OBJ) -o $@ $(LDFLAGS)
 
 # Compilation rule with dependency generation
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(call log,$(YELLOW),🛠️  Compiling,$<)
+	$(call log,$(YELLOW),Compiling,$<)
 	@$(CXX) $(CFLAGS) -MMD -MP -c $< -o $@ $(HEADER_PATHS) $(GENERATED_HEADERS)
 
 # Create directories
@@ -83,44 +82,33 @@ $(BIN_DIR) $(OBJ_DIR):
 #  Utility Targets
 # ======================
 clean:
-	$(call log,$(BLUE),🧹 Cleaning,$(OBJ_DIR))
-	@rm -rf $(OBJ_DIR) vgcore* *.log
+	$(call log,$(BLUE),Cleaning,$(OBJ_DIR))
+	$(call log,$(BLUE),Removing tmp dir,$(TMP_DIR))
+	@rm -rf $(OBJ_DIR) vgcore* *.log $(TMP_DIR) profile.csv
 
 purge: clean
-	$(call log,$(BLUE),🧹 Ramoving build dir,$(BUILD_DIR))
-	@rm -rf $(BUILD_DIR)
+	$(call log,$(BLUE),Removing build dir,$(BUILD_DIR))
+	$(call log,$(BLUE),Removing results,$(RESULTS_DIR))
+	$(call log,$(BLUE),Removing analysis dir,$(ANALYSIS_DIR))
+	@rm -rf $(BUILD_DIR) $(RESULTS_DIR) $(ANALYSIS_DIR)
 
-sync:
-	$(call log,$(CYAN),🔄 Syncing files to remote host,$(REMOTE_HOST))
-	@rsync -a --delete ./ $(REMOTE_HOST):$(REMOTE_DIR)
-
-run: release sync
-	$(call log,$(PURPLE),🚀 Running on remote host,$(REMOTE_HOST))
+run:
 	@$(RUN_SCRIPT)
-
-print-hostfile:
-	@echo $(HOSTFILE)
 
 print-binpath:
 	@echo $(REMOTE_DIR)/$(BIN_DIR)/$(TARGET)
 
-print-remotedir:
-	@echo $(REMOTE_DIR)
-
-print-remotehost:
-	@echo $(REMOTE_HOST)
-
-print-numprocess:
-	@echo $(NUMPROCESS)
+print-%:
+	@echo $* = $($*)
 
 help:
 	@echo "Available targets:"
 	@echo "  release       - Build optimized version (default)"
 	@echo "  profile       - Build with profiling enabled"
 	@echo "  debug         - Build with debug symbols and warnings"
+	@echo "  run 		   - Run the application"
 	@echo "  clean         - Remove build artifacts"
 	@echo "  purge         - Remove all generated files"
-	@echo "  run           - Build (if not already build) and run binary"
 	@echo "  help          - Show this help message"
 	@echo ""
 	@echo "Special debug modes:"

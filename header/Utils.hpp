@@ -17,8 +17,8 @@ namespace utils {
             inline constexpr T operator[](size_t index) { return _data[index]; }
     };
 
-    constexpr MPI_Datatype mpi_type = MPI_UNSIGNED_LONG;
-    using utype = unsigned long;
+    const MPI_Datatype mpi_type = MPI_UNSIGNED_LONG;
+    using utype = unsigned long long;
     using string = vector<char>;
 }
 

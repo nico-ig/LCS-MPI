@@ -17,7 +17,7 @@ public:
     size_t size = ftell(file);
     rewind(file);
 
-    char* content = MemoryHandler::safeAllocate<char>(size);
+    char* content = MemoryHandler::safeAllocate<char>(size + 1);
     size_t pos = 0;
     int ch;
     while ((ch = fgetc(file)) != EOF) {
@@ -25,7 +25,7 @@ public:
             content[pos++] = static_cast<char>(ch);
         }
     }
-
+    content[pos] = '\0';
     fclose(file);
     return ut::string(content, pos);
   }

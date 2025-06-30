@@ -14,15 +14,19 @@ public:
     inline static T* safeAllocate(size_t size) {  
         void* ptr = nullptr;
         ptr = malloc(size * sizeof(T));
+        if (ptr == nullptr) {
+            std::cerr << "Memory allocation of size " << size << " failed" << std::endl;
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        }
         return static_cast<T*>(ptr);
     }
 
     template<typename T>
     static T** safeAllocate(size_t rows, size_t cols) {
-        T* data = safeAllocate<T>(rows * cols);
+        T* data = safeAllocate<T>(cols);
         T** ptr = safeAllocate<T*>(rows);
         for (size_t i = 0; i < rows; ++i) {
-            ptr[i] = data + i * cols;
+            ptr[i] = data;
         }
         return ptr;
     }

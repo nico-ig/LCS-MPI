@@ -1,4 +1,5 @@
 #include <mpi.h>
+#include "ProfileHook.hpp"
 #include "Grid.hpp"
 #include "DebugHooks.hpp"
 #include "FileHandler.hpp"
@@ -9,6 +10,8 @@ int main(int argc, char** argv) {
   // Create a scope so we can clean up the memory only after the grid is destroyed
   {
     MPI_Init(&argc, &argv);
+    ProfileHook::init();
+
     CommandLineParser parser(argc, argv);
 
     int rank;
@@ -31,7 +34,9 @@ int main(int argc, char** argv) {
     GridProcessor::broadcastString(hSeq, rank, MPI_COMM_WORLD);
     GridProcessor::broadcastString(vSeq, rank, MPI_COMM_WORLD);
 
-    int num_ranks = 1;
+    ProfileHook::printLength(hSeq.size());
+
+    int num_ranks;
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
 
     Grid grid(hSeq, vSeq);
@@ -40,7 +45,8 @@ int main(int argc, char** argv) {
   
     MemoryHandler::freeMemory(hSeq.data());
     MemoryHandler::freeMemory(vSeq.data());
-
+    
+    ProfileHook::finalize();
     MPI_Finalize();
   }
 

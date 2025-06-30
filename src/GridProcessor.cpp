@@ -5,6 +5,7 @@
 #include "GridProcessor.hpp"
 #include "DebugHooks.hpp"
 #include "MemoryHandler.hpp"
+#include "ProfileHook.hpp"
 
 GridProcessor::GridProcessor(ut::utype num_ranks, ut::utype rank, Grid* grid) : _num_ranks(num_ranks), _rank(rank), _grid(grid) {
     _row_requests = MemoryHandler::safeAllocate<MPI_Request>(grid->hBlocks());
@@ -107,7 +108,10 @@ void GridProcessor::_processRowBlocks() {
             this->_receiveTopRow(_initial_row, j);
         }
 
+        double start_time = ProfileHook::getTime();
         _grid->computeBlock(_initial_row, static_cast<ut::utype>(j));
+        double end_time = ProfileHook::getTime();
+        ProfileHook::addTime(start_time, end_time);
         _row_requests[j] = this->_sendBottomRow(_initial_row, j);
     }
 

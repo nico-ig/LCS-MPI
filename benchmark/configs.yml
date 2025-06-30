@@ -1,0 +1,30 @@
+services: ["bluetooth.service"]
+
+processes: ["cfg80211", "rtw88_pc", "ecryptfs-kthrea", "kauditd"]
+
+experiment_pairs:
+  - {length: 30000, seeds: [42, 43]}
+  - {length: 40000, seeds: [12, 27]}
+  - {length: 50000, seeds: [215, 1947]}
+  - {length: 60000, seeds: [24, 1999]}
+
+strong_scaling_length: 60000 
+
+threads: [1, 2, 3, 6]
+block: 80
+repeats: 20
+binary: ../build/bin/lcs
+
+frequency: 1400000
+thread_placement: cores
+thread_binding: close
+scheduler: static
+ensure_rescue_mode: no
+
+makefile_path: ../
+makefile_variables_path: ../variables.mk
+profile_function: computeBlock
+profile_pairs:
+  - {length: 50000, seeds: [42, 43]}
+profile_repeats: 20
+
