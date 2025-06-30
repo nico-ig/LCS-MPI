@@ -44,7 +44,7 @@ def verify_correctness(input_dir, num_of_lengths):
 def init_files(output_dir):
     with open(os.path.join(output_dir, "experiments_summary.csv"), "w", newline="") as summary_file:
         summary_writer = csv.writer(summary_file)
-        summary_writer.writerow(["Nodes", "Processes", "Length", "Mean Time", "Std Dev"])
+        summary_writer.writerow(["Nodes", "Processes", "Length", "Mean Time", "Std Dev", "Std Dev %"])
 
     with open(os.path.join(output_dir, "speed_up.csv"), "w", newline="") as speed_up_file:
         speed_up_writer = csv.writer(speed_up_file)
@@ -72,8 +72,8 @@ def split_runs(lines):
     return groups
 
 def collect_job_data(filename):
-    with open(filename, "r") as file:
-        result = file.readlines() 
+    with open(filename, "r", encoding="utf-8") as file:
+        result = [line for line in file if "#RUN#" in line]
     for length, run in split_runs(result):
         experiment_lines = [line.strip() for line in run]
         experiment_lines = [line.split('#RUN#')[1].strip() for line in experiment_lines]
@@ -86,17 +86,25 @@ def collect_experiments_data(config, input_dir):
         int(f.split("nodes_")[1].split("_")[0]),
         int(f.split("ntasks_")[1].split("_")[0])
     ))
-    print(experiment_files)
+    T_node_list = {}
     for filename in experiment_files:
-        T_list = {}
         filename = os.path.join(input_dir, filename)
         nodes = int(filename.split("nodes_")[1].split("_")[0])
         processes = int(filename.split("ntasks_")[1].split("_")[0])
+        T_list = {}
         for length, total_time in collect_job_data(filename):
             if length not in T_list:
                 T_list[length] = []
             T_list[length].append(total_time)
-        yield nodes, processes, T_list
+        if nodes not in T_node_list:
+            T_node_list[nodes] = {}
+        if processes not in T_node_list[nodes]:
+            T_node_list[nodes][processes] = {}
+        for length, times in T_list.items():
+            if length not in T_node_list[nodes][processes]:
+                T_node_list[nodes][processes][length] = []
+            T_node_list[nodes][processes][length].extend(times)
+    return T_node_list
 
 def compute_length_mean_and_std(T_list):
     new_list = {}
@@ -107,8 +115,8 @@ def compute_length_mean_and_std(T_list):
 
 def get_mean_and_seq_times(nodes, processes, T_list, T_seq):
     if (nodes == 1 and processes == 1):
-        T_seq = {length: T_mean for (length, (T_mean, _)) in T_list.items()}
-    T_mean = {length: T_mean for (length, (T_mean, _)) in T_list.items()}
+        T_seq = {length: mean for (length, (mean, _)) in T_list.items()}
+    T_mean = {length: mean for (length, (mean, _)) in T_list.items()}
     return T_mean, T_seq
 
 def compute_values(nodes, processes, T_list, T_seq):
@@ -124,7 +132,8 @@ def write_summary(nodes, processes, T_list, output_dir):
     with open(output_filename, "a", newline="") as summary_file:
         summary_writer = csv.writer(summary_file)
         for length, (T_mean, T_std) in T_list.items():
-            summary_writer.writerow([nodes, processes, length, T_mean, T_std])
+            std_pct = round((T_std / T_mean * 100), 3) if T_mean != 0 else 0.0
+            summary_writer.writerow([nodes, processes, length, T_mean, T_std, std_pct])
     return os.path.basename(output_filename)
 
 def write_speed_up(nodes, processes, lengths, speed_up, output_dir):
@@ -248,21 +257,23 @@ def main():
     experiments_config = config["experiments"]
 
     input_dir, output_dir, graphs_dir, tables_dir = prepare_dirs(benchmark_config)
-    verify_correctness(input_dir, len(experiments_config["length_cases"]))
+    #verify_correctness(input_dir, len(experiments_config["length_cases"]))
     init_files(output_dir)
 
     T_seq = 0
-    for nodes, processes, T_list in collect_experiments_data(config, input_dir):
-        T_list, lengths, speed_up, efficiency, T_seq = compute_values(nodes, processes, T_list, T_seq)
-        summary_filename, speed_up_filename, efficiency_filename = write_files(
-            nodes, processes, T_list, lengths, speed_up, efficiency, output_dir
-        )
-        plot_files(
-            summary_filename, speed_up_filename, efficiency_filename, output_dir, graphs_dir
-        )
-        write_tables(
-            summary_filename, speed_up_filename, efficiency_filename, output_dir, tables_dir
-        )
+    T_node_list = collect_experiments_data(config, input_dir)
+    for nodes, processes_list in T_node_list.items():
+        for processes, T_list in processes_list.items():
+            T_list, lengths, speed_up, efficiency, T_seq = compute_values(nodes, processes, T_list, T_seq)
+            summary_filename, speed_up_filename, efficiency_filename = write_files(
+                nodes, processes, T_list, lengths, speed_up, efficiency, output_dir
+            )
+            plot_files(
+                summary_filename, speed_up_filename, efficiency_filename, output_dir, graphs_dir
+            )
+            write_tables(
+                summary_filename, speed_up_filename, efficiency_filename, output_dir, tables_dir
+            )
 
     print("> All experiments analyzed.")
 

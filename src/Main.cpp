@@ -10,13 +10,14 @@ int main(int argc, char** argv) {
   // Create a scope so we can clean up the memory only after the grid is destroyed
   {
     MPI_Init(&argc, &argv);
-    ProfileHook::init();
-
-    CommandLineParser parser(argc, argv);
 
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    
+
+    int num_ranks;
+    MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
+
+    CommandLineParser parser(argc, argv);
     if (parser.helpRequested()) {
       if (rank == 0) parser.showHelp();
       return 0;
@@ -31,22 +32,18 @@ int main(int argc, char** argv) {
       vSeq = FileHandler::readFile(files[1]);
     }
     
+    ProfileHook::init(rank);
     GridProcessor::broadcastString(hSeq, rank, MPI_COMM_WORLD);
     GridProcessor::broadcastString(vSeq, rank, MPI_COMM_WORLD);
-
-    ProfileHook::printLength(hSeq.size());
-
-    int num_ranks;
-    MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
-
+    ProfileHook::printLength(hSeq.size(), rank);
+    
     Grid grid(hSeq, vSeq);
-
     ProcessorHook::processGridByBlock(num_ranks, rank, &grid);
-  
+    ProfileHook::finalize(rank);
+
     MemoryHandler::freeMemory(hSeq.data());
     MemoryHandler::freeMemory(vSeq.data());
     
-    ProfileHook::finalize();
     MPI_Finalize();
   }
 

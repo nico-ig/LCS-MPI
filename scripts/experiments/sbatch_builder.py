@@ -65,37 +65,44 @@ def create_sbatch_scripts(sbatch_template, repeats, repeats_per_job, num_length_
     sbatch_scripts = mount_sbatch_scripts(sbatch_header, sbatch_body)
     return sbatch_scripts
 
-def format_sbatch_header(sbatch_scripts, job_name, output_file, error_file, config, extra_fields=None):
+def format_sbatch_header(sbatch_scripts, job_name, output_file, error_file, config, index, extra_fields=None):
     formatted_scripts = []
     node_multiplier = 2 if config['nodes'] == 1 else 1
-    for i, script in enumerate(sbatch_scripts):
+    for script in sbatch_scripts:
         fields = {
-            "JOB_NAME": f"{job_name}_part_{i}",
-            "OUTPUT_FILE": f"{output_file}_part_{i}.out",
-            "ERROR_FILE": f"{error_file}_part_{i}.err",
+            "JOB_NAME": f"{job_name}_part_{index}",
+            "OUTPUT_FILE": f"{output_file}_part_{index}.out",
+            "ERROR_FILE": f"{error_file}_part_{index}.err",
             "NODES": config['nodes'] * node_multiplier,
             "NTASKS": config['ntasks'] * node_multiplier,
             "NTASKS_PER_NODE": config['ntasks_per_node'],
             "MEM": config['memory'],
             "HOST_ARRAY": "{HOST_ARRAY}",
         }
-        if extra_fields:
-            index = 0
-            for key, value in extra_fields.items():
-                if "<INDEX>" in value:
-                    extra_fields[key] = extra_fields[key].replace("<INDEX>", str(index))
-                    index = index + 1
-            fields.update(extra_fields)
-        formatted_script = script.format(**fields)
-        formatted_scripts.append(formatted_script)
-    return formatted_scripts
 
-def format_sbatch_lines(lines, input_files, binary, config):
+        if extra_fields:
+             fields.update(extra_fields)
+        formatted_script = script.format(**fields)
+
+        while "<INDEX>" in formatted_script:
+            formatted_script = formatted_script.replace("<INDEX>", str(index), 1)
+            index += 1
+
+        formatted_scripts.append(formatted_script)
+    return formatted_scripts, index
+
+def format_sbatch_lines(lines, input_files, binary, config, i):
     formatted_lines = []
     num_inputs = len(input_files)
-    for i, line in enumerate(lines):
-        input_a, input_b = input_files[i % num_inputs]
+    i_parallel = i
+    for line in lines:
         if "{FILE_A}" in line or "{FILE_B}" in line:
+            if config['nodes'] == 1:
+                input_index = (i // 2) % num_inputs
+            else:
+                input_index = i % num_inputs
+            input_a, input_b = input_files[input_index]
+            i = i + 1
             formatted_line = line.format(
                 NODES=config['nodes'],
                 NTASKS=config['ntasks'],
@@ -110,13 +117,13 @@ def format_sbatch_lines(lines, input_files, binary, config):
             formatted_line = line
         formatted_lines.append(formatted_line)
     formatted_lines.append("\n")
-    return formatted_lines
+    return formatted_lines, i
 
-def format_sbatch_body(sbatch_scripts, input_files, binary, config):
+def format_sbatch_body(sbatch_scripts, input_files, binary, config, i):
     formatted_scripts = []
     input_files = list(input_files.values())
     for script in sbatch_scripts:
         lines = script.splitlines()
-        formatted_lines = format_sbatch_lines(lines, input_files, binary, config)
+        formatted_lines, i = format_sbatch_lines(lines, input_files, binary, config, i)
         formatted_scripts.append("\n".join(formatted_lines))
-    return formatted_scripts
+    return formatted_scripts, i

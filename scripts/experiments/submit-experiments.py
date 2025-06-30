@@ -22,9 +22,12 @@ def main():
     benchmark_config = config["benchmark"]
     experiments_config = config["experiments"]
 
+    i = 0
+    j = 0
     print("> Submitting experiments...")
     try:
         input_files = utils.generate_sequence_files(experiments_config["length_cases"], benchmark_config["tmp_dir"])
+        print(len(input_files), "input files generated.")
         all_sbatch_scripts = []
         for case in experiments_config["test_cases"]:
             sbatch_scripts = []
@@ -48,8 +51,8 @@ def main():
                 "MPI_PROFILE_NAME": os.path.join(output_dir, f"{job_name}_mpi_experiment_part_<INDEX>.out"),
             }
 
-            sbatch_scripts = builder.format_sbatch_body(sbatch_scripts, input_files, release_config["binary"], case)
-            sbatch_scripts = builder.format_sbatch_header(sbatch_scripts, job_name, output_file, error_file, case, extra_fields)
+            sbatch_scripts, j = builder.format_sbatch_body(sbatch_scripts, input_files, release_config["binary"], case, j)
+            sbatch_scripts, i = builder.format_sbatch_header(sbatch_scripts, job_name, output_file, error_file, case, i, extra_fields)
 
             for script in sbatch_scripts:
                 utils.submit_and_wait_for_jobs([script], job_name, release_config["sleep_time"], benchmark_config["tmp_dir"])

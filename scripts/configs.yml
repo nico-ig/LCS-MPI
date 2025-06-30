@@ -4,24 +4,24 @@ benchmark:
   tmp_dir: tmp
   done_message: '> Done.'
   submit_log_file: submit.log
-  sleep_time: 10 #300
+  sleep_time: 300
 
 experiments:
   length_cases:
-    - {length: 60000, seeds: [42, 42]}
-  #  - {length: 90000, seeds: [1, 1]}
-  #  - {length: 120000, seeds: [3, 3]}
-  #  - {length: 150000, seeds: [5, 5]}
-  #  - {length: 180000, seeds: [12, 12]}
+  #  - {length: 60000, seeds: [42, 41]}
+    - {length: 90000, seeds: [1, 2]}
+  #  - {length: 120000, seeds: [3, 5]}
+    - {length: 150000, seeds: [4, 7]}
+  #  - {length: 180000, seeds: [12, 27]}
   test_cases:
-    - {nodes: 1, ntasks: 1, cpu_list: [0], ntasks_per_node: 1, bind_to: core, memory: 4G, repeats_per_job: 2} #20
-    - {nodes: 1, ntasks: 2, cpu_list: [0, 2], ntasks_per_node: 2, bind_to: core, memory: 4G, repeats_per_job: 2} #20
-    - {nodes: 1, ntasks: 3, cpu_list: [0, 2, 4], ntasks_per_node: 3, bind_to: core, memory: 4G, repeats_per_job: 2} #20
-    - {nodes: 2, ntasks: 2, cpu_list: [0], ntasks_per_node: 1, bind_to: core, memory: 4G, repeats_per_job: 2} #20
-    - {nodes: 2, ntasks: 4, cpu_list: [0, 2], ntasks_per_node: 2, bind_to: core, memory: 4G, repeats_per_job: 2} #20
-    - {nodes: 2, ntasks: 6, cpu_list: [0, 2, 4], ntasks_per_node: 3, bind_to: core, memory: 4G, repeats_per_job: 2} #20
-  #  - {nodes: 2, ntasks: 12, cpu_list: [0, 1, 2, 3, 4, 5], ntasks_per_node: 6, bind_to: none, memory: 4G, repeats_per_job: 2}
-  #  - {nodes: 1, ntasks: 6, cpu_list: [0, 1, 2, 3, 4, 5], ntasks_per_node: 6, bind_to: none, memory: 4G, repeats_per_job: 2}
+    - {nodes: 1, ntasks: 1, cpu_list: [0], ntasks_per_node: 1, bind_to: core, memory: 4G, repeats_per_job: 20}
+    - {nodes: 1, ntasks: 2, cpu_list: [0, 2], ntasks_per_node: 2, bind_to: core, memory: 4G, repeats_per_job: 20}
+    - {nodes: 1, ntasks: 3, cpu_list: [0, 2, 4], ntasks_per_node: 3, bind_to: core, memory: 4G, repeats_per_job: 20}
+    - {nodes: 2, ntasks: 2, cpu_list: [0], ntasks_per_node: 1, bind_to: core, memory: 4G, repeats_per_job: 20}
+    - {nodes: 2, ntasks: 4, cpu_list: [0, 2], ntasks_per_node: 2, bind_to: core, memory: 4G, repeats_per_job: 20}
+    - {nodes: 2, ntasks: 6, cpu_list: [0, 2, 4], ntasks_per_node: 3, bind_to: core, memory: 4G, repeats_per_job: 20}
+    - {nodes: 2, ntasks: 12, cpu_list: [0, 1, 2, 3, 4, 5], ntasks_per_node: 6, bind_to: none, memory: 4G, repeats_per_job: 20}
+    - {nodes: 1, ntasks: 6, cpu_list: [0, 1, 2, 3, 4, 5], ntasks_per_node: 6, bind_to: none, memory: 4G, repeats_per_job: 20}
 
 makefile:
   path: .
@@ -34,19 +34,19 @@ cluster:
 release:
   target: lcs-release
   binary: ./build/bin/lcs-release
-  repeats: 2 #20
-  sleep_time: 10 #180
+  repeats: 20
+  sleep_time: 180
 
 profile:
   target: lcs-profile
   binary: ./build/bin/lcs-profile
   function: computeBlock
-  repeats: 2 #20
-  repeats_per_job: 2 #20
-  sleep_time: 10 #60
-  memory: 4G #---
+  repeats: 2
+  repeats_per_job: 20
+  sleep_time: 180
+  memory: 4G
   length_cases:
-    - {length: 60000, seeds: [42, 43]}
+    - {length: 60, seeds: [42, 41]}
 
 amdahl:
   processes: [1, 2, 3, 6, 12]

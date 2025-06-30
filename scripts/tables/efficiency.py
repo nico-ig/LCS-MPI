@@ -12,7 +12,7 @@ def parse_args():
 def main():
     args = parse_args()
     df = pd.read_csv(args.input)
-    pivot = df.pivot(index="Length", columns="Processes", values="Efficiency")
+    pivot = df.pivot(index=["Length", "Nodes"], columns="Processes", values="Efficiency")
     pivot = pivot[sorted(pivot.columns)]
     pivot.columns = [f"{int(col)}" for col in pivot.columns]
     pivot.columns.name = "N/Processes"

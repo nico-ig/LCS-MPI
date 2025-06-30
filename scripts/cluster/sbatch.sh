@@ -11,5 +11,7 @@
 #SBATCH --ntasks-per-node={NTASKS_PER_NODE}
 #SBATCH --mem={MEM}
 
+#SBATCH --exclude=node2,node4,node6,node8,node10,node12
+
 HOST_LIST=$(srun hostname | sort -u | sed 's/$/:{NTASKS_PER_NODE}/' | paste -sd ",")
 mpirun --report-bindings --host $HOSTS -n {NTASKS} --map-by ppr:{NTASKS_PER_NODE}:node:PE-LIST={CPU_LIST} --bind-to {BIND_TO} --rank-by core {BINARY} -f {FILE_A} -f {FILE_B}

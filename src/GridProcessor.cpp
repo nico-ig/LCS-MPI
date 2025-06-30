@@ -108,10 +108,10 @@ void GridProcessor::_processRowBlocks() {
             this->_receiveTopRow(_initial_row, j);
         }
 
-        double start_time = ProfileHook::getTime();
+        double start_time = ProfileHook::getTime(_rank);
         _grid->computeBlock(_initial_row, static_cast<ut::utype>(j));
-        double end_time = ProfileHook::getTime();
-        ProfileHook::addTime(start_time, end_time);
+        double end_time = ProfileHook::getTime(_rank);
+        ProfileHook::addTime(start_time, end_time, _rank);
         _row_requests[j] = this->_sendBottomRow(_initial_row, j);
     }
 
