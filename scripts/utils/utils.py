@@ -151,3 +151,7 @@ def prepare_directories(config, dir_name):
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(config["benchmark"]["tmp_dir"], exist_ok=True)
     return output_dir
+
+def add_alt_suffix(filename):
+    base, ext = os.path.splitext(filename)
+    return f"{base}_alt{ext}" 

@@ -171,11 +171,21 @@ def plot_speed_up(input_file, output_file):
         ["--input", input_file, "--output", output_file],
         capture_output=False
     )
+    utils.run_file(
+        "scripts/plot/speed_up_alt.py",
+        ["--input", input_file, "--output", utils.add_alt_suffix(output_file)],
+        capture_output=False
+    )
 
 def plot_efficiency(input_file, output_file):
     utils.run_file(
         "scripts/plot/efficiency.py",
         ["--input", input_file, "--output", output_file],
+        capture_output=False
+    )
+    utils.run_file(
+        "scripts/plot/efficiency_alt.py",
+        ["--input", input_file, "--output", utils.add_alt_suffix(output_file)],
         capture_output=False
     )
 
